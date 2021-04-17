@@ -50,7 +50,7 @@
 
     <target name="xml">
         <xmlvalidate lenient="yes">
-            <fileset dir="../asda/src/main/webapp" includes="*/*.xml"/>
+            <fileset dir="." includes="*/*.xml"/>
         </xmlvalidate>
     </target>
 
