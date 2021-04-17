@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<project name="lab3" default="build">
+    <property file="build.properties"/>
+    <!--    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>-->
+
+    <path id="classpath.source">
+        <fileset dir="${lib.dir}" includes="**/*.jar" />
+    </path>
+
+    <target name="compile">
+        <mkdir dir="${compiled.classes}"/>
+        <mkdir dir="${compiled.tests}"/>
+        <javac destdir="${compiled.classes}" includeantruntime="false">
+            <src path="${main}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+        </javac>
+        <javac destdir="${compiled.tests}" includeantruntime="false">
+            <src path="${test}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <jar destfile="${dest.jar}" basedir="${compiled.classes}" compress="false" index="true">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+        <!--        <war destfile = "${compiled}/${dest.war}" webxml = "${web.dir.inf}/web.xml">-->
+        <!--            <classes dir="${compiled.classes}" />-->
+        <!--            <fileset dir="${web.dir}" />-->
+        <!--            <lib dir="${lib}"/>-->
+        <!--        </war>-->
+    </target>
+
+    <target name="native2ascii">
+        <native2ascii src="../asda/src/main/resources_nc" dest="../asda/src/main/resources"
+                      includes="*.properties" ext=".properties"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${compiled}"/>
+    </target>
+
+    <target name="xml">
+        <xmlvalidate lenient="yes">
+            <fileset dir="../asda/src/main/webapp" includes="*/*.xml"/>
+        </xmlvalidate>
+    </target>
+
+    <target name="test" depends="build">
+
+        <junit fork="true" printsummary="on">
+            <formatter type="xml"/>
+            <classpath>
+                <path refid="classpath.source" />
+                <pathelement location="${compiled.classes}"/>
+                <pathelement location="${compiled.tests}"/>
+            </classpath>
+            <batchtest todir="reports">
+                <fileset dir="${test}" includes="*Test*.java" />
+            </batchtest>
+        </junit>
+    </target>
+
+    <!--    <target name="history">-->
+    <!--        <trycatch>-->
+    <!--            <try>-->
+    <!--                <runtarget target="compile"/>-->
+    <!--            </try>-->
+    <!--            <catch>-->
+    <!--                <exec executable="git">-->
+    <!--                    <arg value="reset HEAD~1 &#45;&#45;hard"/>-->
+    <!--                </exec>-->
+    <!--                <runtarget target="history"/>-->
+    <!--            </catch>-->
+    <!--        </trycatch>-->
+    <!--    </target>-->
+
+</project>
