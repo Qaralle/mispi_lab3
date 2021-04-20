@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <project name="lab3" default="build">
     <property file="build.properties"/>
-    <!--    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>-->
-
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="/usr/share/ant/lib/ant-contrib.jar"/>
+        </classpath>
+    </taskdef>
     <path id="classpath.source">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
     </path>
@@ -69,18 +72,18 @@
         </junit>
     </target>
 
-    <!--    <target name="history">-->
-    <!--        <trycatch>-->
-    <!--            <try>-->
-    <!--                <runtarget target="compile"/>-->
-    <!--            </try>-->
-    <!--            <catch>-->
-    <!--                <exec executable="git">-->
-    <!--                    <arg value="reset HEAD~1 &#45;&#45;hard"/>-->
-    <!--                </exec>-->
-    <!--                <runtarget target="history"/>-->
-    <!--            </catch>-->
-    <!--        </trycatch>-->
-    <!--    </target>-->
+    <target name="history">
+        <trycatch>
+            <try>
+                <runtarget target="compile"/>
+            </try>
+            <catch>
+                <exec executable="git">
+                    <arg value="reset HEAD~1 --hard"/>
+                </exec>
+                <runtarget target="history"/>
+            </catch>
+        </trycatch>
+    </target>
 
 </project>
