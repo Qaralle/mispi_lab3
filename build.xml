@@ -92,8 +92,9 @@
                         <echo message="I cannot build the first commit. Stop"/>
                     </then>
                     <else>
-                        <exec executable="git">
-                            <arg value="reset HEAD~1 --hard"/>
+                        <exec executable="bash">
+                            <arg value="-c"/>
+                            <arg value="git reset HEAD~1 --hard"/>
                         </exec>
                         <runtarget target="history"/>
                     </else>
