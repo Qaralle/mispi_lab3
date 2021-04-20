@@ -10,7 +10,7 @@
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
-    <target name="compile">
+    <target name="compile" depends="native2ascii">
         <mkdir dir="${compiled.classes}"/>
         <mkdir dir="${compiled.tests}"/>
         <javac destdir="${compiled.classes}" includeantruntime="false">
@@ -43,7 +43,7 @@
     </target>
 
     <target name="native2ascii">
-        <native2ascii src="../asda/src/main/resources_nc" dest="../asda/src/main/resources"
+        <native2ascii src="./src/main/resources_nc" dest="./src/main/resources"
                       includes="*.properties" ext=".properties"/>
     </target>
 
