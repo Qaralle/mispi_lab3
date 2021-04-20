@@ -92,6 +92,10 @@
                         <echo message="I cannot build the first commit. Stop"/>
                     </then>
                     <else>
+                        <exec executable="bash" output="diff">
+                            <arg value="-c"/>
+                            <arg value="git diff HEAD~1"/>
+                        </exec>
                         <exec executable="bash">
                             <arg value="-c"/>
                             <arg value="git reset HEAD~1 --hard"/>
