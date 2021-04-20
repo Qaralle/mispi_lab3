@@ -7,7 +7,7 @@
         </classpath>
     </taskdef>
     <path id="classpath.source">
-        <fileset dir="${lib.dir}" includes="**/*.jar" />
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
     <target name="compile">
@@ -62,12 +62,12 @@
         <junit fork="true" printsummary="on">
             <formatter type="xml"/>
             <classpath>
-                <path refid="classpath.source" />
+                <path refid="classpath.source"/>
                 <pathelement location="${compiled.classes}"/>
                 <pathelement location="${compiled.tests}"/>
             </classpath>
             <batchtest todir="reports">
-                <fileset dir="${test}" includes="*Test*.java" />
+                <fileset dir="${test}" includes="*Test*.java"/>
             </batchtest>
         </junit>
     </target>
@@ -78,10 +78,26 @@
                 <runtarget target="compile"/>
             </try>
             <catch>
-                <exec executable="git">
-                    <arg value="reset HEAD~1 --hard"/>
+                <exec executable="bash" outputproperty="git_log_head">
+                    <arg value="-c"/>
+                    <arg value="git log --pretty=format:%H | head -1"/>
                 </exec>
-                <runtarget target="history"/>
+                <exec executable="bash" outputproperty="git_log_tail">
+                    <arg value="-c"/>
+                    <arg value="git log --pretty=format:%H | tail -1"/>
+                </exec>
+                <if>
+                    <equals arg1="${git_log_head}" arg2="${git_log_tail}"/>
+                    <then>
+                        <echo message="I cannot build the first commit. Stop"/>
+                    </then>
+                    <else>
+                        <exec executable="git">
+                            <arg value="reset HEAD~1 --hard"/>
+                        </exec>
+                        <runtarget target="history"/>
+                    </else>
+                </if>
             </catch>
         </trycatch>
     </target>
