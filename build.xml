@@ -32,7 +32,7 @@
     <target name="build" depends="compile">
         <jar destfile="${dest.jar}" basedir="${compiled.classes}" compress="false" index="true">
             <manifest>
-                <attribute name="Main-Class" value="Main"/>
+                <attribute name="Main-Class" value="main.Main"/>
             </manifest>
         </jar>
         <!--        <war destfile = "${compiled}/${dest.war}" webxml = "${web.dir.inf}/web.xml">-->
@@ -102,5 +102,12 @@
             </catch>
         </trycatch>
     </target>
+    <target name="env" depends="build">
+        <echo message="Executing: ${java} ${params} -jar ${dest.jar}"/>
 
+        <exec executable="bash">
+            <arg value="-c"/>
+            <arg value="${java} ${params} -jar ${dest.jar}"/>
+        </exec>
+    </target>
 </project>
