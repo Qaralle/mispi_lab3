@@ -85,8 +85,8 @@ public class AreaTest {
 
         result.setR(2.0);
 
-        for (double i = -2; i <= 0; i+=0.1) {
-            for (double j = -1; j <= 0; j+=0.1) {
+        for (double i = -2; i <= 0; i+=0.001) {
+            for (double j = -1; j <= 0; j+=0.001) {
                 result.setX(i);
                 result.setY(j);
                 result.checkTheArea();
@@ -101,8 +101,8 @@ public class AreaTest {
     public void rectangularMissLeftPartTest() {
         result.setR(2.0);
 
-        for (double i = -2; i <= 0; i+=0.1) {
-            for (double j = -3; j < -1; j+=0.1) {
+        for (double i = -2; i <= 0; i+=0.001) {
+            for (double j = -3; j < -1; j+=0.001) {
                 result.setX(i);
                 result.setY(j);
                 result.checkTheArea();
@@ -116,8 +116,8 @@ public class AreaTest {
     public void rectangularMissRightPartTest() {
         result.setR(2.0);
 
-        for (double i = 0.1; i <= 2; i+=0.1) {
-            for (double j = -3; j < 0; j+=0.1) {
+        for (double i = 0.001; i <= 2; i+=0.1) {
+            for (double j = -3; j < 0; j+=0.001) {
                 result.setX(i);
                 result.setY(j);
                 result.checkTheArea();
@@ -131,8 +131,8 @@ public class AreaTest {
     public void quadrantMissTest() {
         result.setR(2.0);
 
-        for (double i = -2; i <-1; i+=0.1) {
-            for (double j = 1; j < 3; j+=0.1) {
+        for (double i = -2; i <-1; i+=0.001) {
+            for (double j = 1; j < 3; j+=0.001) {
                 if (pow(i,2) + pow(j,2)>pow(result.getR()/2,2)){
                     result.setX(i);
                     result.setY(j);
@@ -147,8 +147,8 @@ public class AreaTest {
     public void quadrantHitTest(){
         result.setR(2.0);
 
-        for (double i = -1; i <=0; i+=0.1) {
-            for (double j = 0; j <=1; j+=0.1) {
+        for (double i = -1; i <=0; i+=0.001) {
+            for (double j = 0; j <=1; j+=0.001) {
                 if (pow(i,2) + pow(j,2)<=pow(result.getR()/2,2)){
                     result.setX(i);
                     result.setY(j);
@@ -163,8 +163,8 @@ public class AreaTest {
     public void triangleMissTest() {
         result.setR(2.0);
 
-        for (double i = 0; i <=2; i+=0.1) {
-            for (double j = 0; j <=1; j+=0.1) {
+        for (double i = 0; i <=2; i+=0.001) {
+            for (double j = 0; j <=1; j+=0.001) {
                 result.setX(i);
                 result.setY(j);
                 if (j > - i / 2 + result.getR() / 2) {
@@ -180,8 +180,8 @@ public class AreaTest {
     public void triangleHitTest() {
         result.setR(2.0);
 
-        for (double i = 0; i <=2; i+=0.1) {
-            for (double j = 0; j <=1; j+=0.1) {
+        for (double i = 0; i <=2; i+=0.001) {
+            for (double j = 0; j <=1; j+=0.001) {
                 result.setX(i);
                 result.setY(j);
                 if (j <= -result.getX()/2 + result.getR()/2){
@@ -196,8 +196,8 @@ public class AreaTest {
     public void emptyAreaHitTest() {
         result.setR(2.0);
 
-        for (double i = 2; i > 0; i -= 0.1) {
-            for (double j = -3; j < 0; j += 0.1) {
+        for (double i = 2; i > 0; i -= 0.001) {
+            for (double j = -3; j < 0; j += 0.001) {
                 result.setX(i);
                 result.setY(j);
                 assertFalse(result.getResult());
